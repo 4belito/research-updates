@@ -1,0 +1,46 @@
+\section{Background}
+
+\begin{frame}{Why Better Scheduling?}
+  \centering
+  \includesvg[height=0.82\textheight]{scheduling_comparison}
+\end{frame}
+
+% ---- Greedy baselines: FCFS / SJF / Smallest First --------
+\begin{frame}{Greedy Scheduling Baselines}
+  \centering
+  \includesvg[height=0.82\textheight]{greedy_baselines}
+\end{frame}
+
+% ---- Background slide 2 of 2: Why RL for Scheduling? -------
+\begin{frame}{Why RL for Scheduling?}
+  \centering
+  \includesvg[height=0.82\textheight]{rl_loop}
+\end{frame}
+
+% ---- Learning comparison: CompOpt vs SchOpt ---------------
+\begin{frame}{Does the RL Agent Actually Learn?}
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
+      \centering
+      {\bfseries\color{SoftCoral} CompOpt environment}\\[3pt]
+      \framedgraphic{return_compopt}\\[5pt]
+      {\footnotesize PPO \& DQN returns stay flat \\ the agents \textbf{fail to learn}}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \centering
+      {\bfseries\color{SkyBlue} SchOpt environment (ours)}\\[3pt]
+      \framedgraphic{return_SchOpt}\\[5pt]
+      {\footnotesize Returns climb steadily \\ the agent \textbf{clearly learns}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Transition: what did we change? ----------------------
+\begin{frame}
+  \centering
+  \vfill
+  {\color{SkyBlue}\large Same algorithms (PPO \& DQN), opposite outcome}\\[1.2em]
+  {\color{DeepBlue}\Huge\bfseries So what did we actually change?}\\[1.2em]
+  {\color{DeepBlue!70}\normalsize It wasn't the agent --- it was the environment.}
+  \vfill
+\end{frame}

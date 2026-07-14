@@ -1,0 +1,83 @@
+% ============================================================
+%  Stakeholder-focused deck
+%  Topic: RL-based Scheduling for Data Centers
+% ============================================================
+\documentclass[aspectratio=169]{beamer}
+
+% ---------- Theme -------------------------------------------
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% ---------- Packages ----------------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{svg}
+\svgpath{{images/}}
+\graphicspath{{images/}}
+\svgsetup{inkscapelatex=false}
+
+% ---------- Visual style ------------------------------------
+\definecolor{DeepBlue}{HTML}{0B2545}
+\definecolor{SkyBlue}{HTML}{2A9D8F}
+\definecolor{WarmGold}{HTML}{E9C46A}
+\definecolor{SoftCoral}{HTML}{E76F51}
+\definecolor{LightMint}{HTML}{E9F6F4}
+\definecolor{CanvasLeft}{HTML}{F5FAFF}
+\definecolor{CanvasRight}{HTML}{ECF7F6}
+
+\setbeamercolor{structure}{fg=DeepBlue}
+\setbeamercolor{frametitle}{fg=DeepBlue,bg=LightMint}
+\setbeamercolor{title}{fg=DeepBlue}
+\setbeamercolor{block title}{fg=white,bg=DeepBlue}
+\setbeamercolor{block body}{bg=LightMint}
+\setbeamercolor{alertblock title}{fg=white,bg=SoftCoral}
+\setbeamercolor{alertblock body}{bg=SoftCoral!10}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{itemize item}{\color{SkyBlue}$\triangleright$}
+
+\setbeamertemplate{background canvas}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \path[shade,left color=CanvasLeft,right color=CanvasRight]
+      (current page.south west) rectangle (current page.north east);
+    \fill[SkyBlue!8] ($(current page.north east)+(-1.0,-0.8)$) circle (1.5cm);
+    \fill[WarmGold!10] ($(current page.south west)+(1.0,0.9)$) circle (1.2cm);
+  \end{tikzpicture}%
+}
+
+% ---------- Title info --------------------------------------
+\title[RL Scheduling for DCs]{RL-based Scheduling for Data Centers}
+\subtitle{Crisp Technical + Business Narrative}
+\author[A. Diaz Gonzalez \& K. Team]{Abel Diaz Gonzalez and Krishu}
+\institute[Lab / BU]{Lab / BU Collaboration}
+\date{June 2026}
+
+% ============================================================
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  \vspace{-0.5em}
+  \begin{center}
+    \small\color{DeepBlue}Adaptive scheduling for performance, efficiency, and business impact
+  \end{center}
+\end{frame}
+
+% ============================================================
+\section{Background}
+% ============================================================
+
+% ---- Background slide 1 of 2: Why Better Scheduling? --------
+
+\begin{frame}
+  \centering
+  \Huge\textbf{Thank You}\\[0.8em]
+  \large Background section only (v1)
+\end{frame}
+
+\end{document}

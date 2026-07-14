@@ -1,0 +1,78 @@
+% ============================================================
+%  results.tex  —  FRAGMENT, included via \input from main.tex
+%  Experimental setup + results figures.
+%  Body-only (no \usepackage); reuses colors/styles from main.tex.
+%  Images used (in images/):
+%    - idle_reward.png          (schedulable-idle reward only)
+%    - idle_w_priority_thr.png  (schedulable-idle + priority-slowdown reward)
+%    - <third figure TBD>
+% ============================================================
+
+% ============================================================
+\section{Results}
+% ============================================================
+
+% ---- Slide: Experimental setup -----------------------------
+\begin{frame}{Experimental Setup}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.52\textwidth}
+      \begin{block}{Agents compared}
+        \footnotesize
+        \begin{minipage}[t][3.4cm]{\linewidth}
+        \begin{description}
+          \item[\textcolor{SoftCoral}{RL}] DQN, PPO
+          \item[\textcolor{SkyBlue!70!black}{Naive}] Random, Constant
+          \item[\textcolor{DeepBlue}{Greedy}] FCFS, SJF, Priority,\\ SmallestFirst, LargestFirst
+        \end{description}
+        \end{minipage}
+      \end{block}
+
+    \column{0.44\textwidth}
+      \begin{block}{Metrics}
+        \footnotesize
+        \begin{minipage}[t][3.4cm]{\linewidth}
+        \begin{itemize}\setlength\itemsep{2pt}
+          \item Episode \textbf{reward}
+          \item \textbf{Jobs completed}
+          \item \textbf{Makespan}
+          \item Avg.\ job \textbf{wait time}
+          \item Avg.\ node \textbf{utilisation}
+          \item \textbf{Throughput} (jobs/h)
+        \end{itemize}
+        \end{minipage}
+      \end{block}
+  \end{columns}
+
+  \vspace{0.4em}
+  \centering
+  \small\textcolor{DeepBlue}{Same 9 agents and 6 metrics evaluated under each reward design (error bars $=\pm1$ std over 30 episodes).}
+\end{frame}
+
+% ---- Slide: Reward design 1 — schedulable-idle only --------
+\begin{frame}{Results: Schedulable-Idle Reward}
+  \centering
+  \framedgraphic[height=0.7\textheight]{idle_reward}
+
+  \vspace{1em}
+  \small\textcolor{DeepBlue}{Reward $= -w\,\tfrac{\min(D_t, n_{\text{free}})}{N}$ only. \;
+  \textbf{DQN} (best) leads on reward, jobs completed, utilisation \& throughput.}
+\end{frame}
+
+% ---- Slide: Reward design 2 — idle + priority slowdown -----
+\begin{frame}{Results: Idle + Priority-Slowdown Reward}
+  \centering
+  \framedgraphic[height=0.7\textheight]{idle_w_priority_thr}
+
+  \vspace{1em}
+  \small\textcolor{DeepBlue}{Adds $-w_p\,\widehat{\sum_j p_j/T_j}$. \;
+  \textbf{DQN} still best; avg.\ wait drops ($156.8\!\to\!150.4$ min) by clearing high-priority, short jobs.}
+\end{frame}
+
+% ---- Slide: Reward design 3 — comparison -------------------
+\begin{frame}{Results: Reward Comparison}
+  \centering
+  \framedgraphic[height=0.7\textheight]{reward_comparison}
+
+  \vspace{0.2em}
+  \small\textcolor{DeepBlue}{Our reward wins under \emph{both} metrics, even the queue-utilisation one it was \emph{not} trained on: the noisy old reward stops its own model from converging.}
+\end{frame}

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 650" width="1280" height="650" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bgG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5FAFF"/>
+      <stop offset="1" stop-color="#ECF7F6"/>
+    </linearGradient>
+    <marker id="tip" markerWidth="12" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L12,5 L0,10 Z" fill="#5A6675"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="650" fill="url(#bgG)"/>
+  <circle cx="1195" cy="55" r="70" fill="#2A9D8F" opacity="0.06"/>
+  <circle cx="80" cy="600" r="60" fill="#E9C46A" opacity="0.10"/>
+
+  <!-- intro lines (no title; frame supplies it) -->
+  <text x="640" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#0B2545">Three greedy rules &#8212; three different orderings of the same jobs</text>
+  <text x="640" y="64" text-anchor="middle" font-size="16" fill="#3A5566">each box = one job&#160;&#160;&#8226;&#160;&#160;width = run time&#160;&#160;&#8226;&#160;&#160;height = resource demand&#160;&#160;&#8226;&#160;&#160;colours track the same job across rows</text>
+
+  <!-- ===================== PANEL 1: FCFS ===================== -->
+  <text x="28" y="170" font-size="26" font-weight="700" fill="#0B2545">FCFS</text>
+  <text x="28" y="192" font-size="14" fill="#5A6675">first-come,</text>
+  <text x="28" y="210" font-size="14" fill="#5A6675">first-served</text>
+  <text x="28" y="232" font-size="13" font-style="italic" fill="#2A9D8F">order: arrival</text>
+  <line x1="230" y1="238" x2="1240" y2="238" stroke="#B9C4D0" stroke-width="2"/>
+  <!-- order A,B,C,D -->
+  <g>
+    <rect x="235" y="168" width="216" height="70" rx="6" fill="#2A9D8F" stroke="#1E7D72" stroke-width="2"/>
+    <text x="343" y="210" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">A</text>
+    <rect x="459" y="198" width="96" height="40" rx="6" fill="#E76F51" stroke="#C9492A" stroke-width="2"/>
+    <text x="507" y="225" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">B</text>
+    <rect x="563" y="183" width="312" height="55" rx="6" fill="#E9C46A" stroke="#C79A33" stroke-width="2"/>
+    <text x="719" y="217" text-anchor="middle" font-size="22" font-weight="700" fill="#4A3A0A">C</text>
+    <rect x="883" y="148" width="144" height="90" rx="6" fill="#0B2545" stroke="#06182E" stroke-width="2"/>
+    <text x="955" y="200" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">D</text>
+  </g>
+
+  <!-- ===================== PANEL 2: SJF ===================== -->
+  <text x="28" y="326" font-size="26" font-weight="700" fill="#0B2545">SJF</text>
+  <text x="28" y="348" font-size="14" fill="#5A6675">shortest</text>
+  <text x="28" y="366" font-size="14" fill="#5A6675">job first</text>
+  <text x="28" y="388" font-size="13" font-style="italic" fill="#E76F51">order: run time</text>
+  <line x1="230" y1="394" x2="1240" y2="394" stroke="#B9C4D0" stroke-width="2"/>
+  <!-- order B,D,A,C -->
+  <g>
+    <rect x="235" y="354" width="96" height="40" rx="6" fill="#E76F51" stroke="#C9492A" stroke-width="2"/>
+    <text x="283" y="381" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">B</text>
+    <rect x="339" y="304" width="144" height="90" rx="6" fill="#0B2545" stroke="#06182E" stroke-width="2"/>
+    <text x="411" y="356" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">D</text>
+    <rect x="491" y="324" width="216" height="70" rx="6" fill="#2A9D8F" stroke="#1E7D72" stroke-width="2"/>
+    <text x="599" y="366" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">A</text>
+    <rect x="715" y="339" width="312" height="55" rx="6" fill="#E9C46A" stroke="#C79A33" stroke-width="2"/>
+    <text x="871" y="373" text-anchor="middle" font-size="22" font-weight="700" fill="#4A3A0A">C</text>
+  </g>
+
+  <!-- ===================== PANEL 3: Smallest First ===================== -->
+  <text x="28" y="488" font-size="22" font-weight="700" fill="#0B2545">Smallest</text>
+  <text x="28" y="512" font-size="22" font-weight="700" fill="#0B2545">First</text>
+  <text x="28" y="534" font-size="14" fill="#5A6675">least resource</text>
+  <text x="28" y="552" font-size="13" font-style="italic" fill="#0B2545">order: height</text>
+  <line x1="230" y1="550" x2="1240" y2="550" stroke="#B9C4D0" stroke-width="2"/>
+  <!-- order B,C,A,D -->
+  <g>
+    <rect x="235" y="510" width="96" height="40" rx="6" fill="#E76F51" stroke="#C9492A" stroke-width="2"/>
+    <text x="283" y="537" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">B</text>
+    <rect x="339" y="495" width="312" height="55" rx="6" fill="#E9C46A" stroke="#C79A33" stroke-width="2"/>
+    <text x="495" y="529" text-anchor="middle" font-size="22" font-weight="700" fill="#4A3A0A">C</text>
+    <rect x="659" y="480" width="216" height="70" rx="6" fill="#2A9D8F" stroke="#1E7D72" stroke-width="2"/>
+    <text x="767" y="522" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">A</text>
+    <rect x="883" y="460" width="144" height="90" rx="6" fill="#0B2545" stroke="#06182E" stroke-width="2"/>
+    <text x="955" y="512" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">D</text>
+  </g>
+  <!-- time axis -->
+  <line x1="235" y1="565" x2="560" y2="565" stroke="#5A6675" stroke-width="2" marker-end="url(#tip)"/>
+  <text x="250" y="582" font-size="13" fill="#5A6675">time / position in schedule</text>
+
+  <!-- ===================== BOTTOM NOTE ===================== -->
+  <rect x="160" y="598" width="960" height="44" rx="14" fill="#0B2545"/>
+  <text x="640" y="626" text-anchor="middle" font-size="16" font-weight="700" fill="#FFFFFF">Simple and fast &#8212; but each rule is <tspan fill="#E9C46A">myopic</tspan>: it only looks at the current queue, ignoring how today&#8217;s choice shapes tomorrow</text>
+</svg>

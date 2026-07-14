@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 650" width="1280" height="650" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5FAFF"/>
+      <stop offset="1" stop-color="#ECF7F6"/>
+    </linearGradient>
+    <linearGradient id="redZone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCE4DD"/>
+      <stop offset="1" stop-color="#F8CFC3"/>
+    </linearGradient>
+    <linearGradient id="greenZone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DFF3EF"/>
+      <stop offset="1" stop-color="#C7EAE3"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E76F51"/>
+      <stop offset="1" stop-color="#2A9D8F"/>
+    </linearGradient>
+    <marker id="ah" markerWidth="14" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L14,6 L0,12 Z" fill="#2A9D8F"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="650" fill="url(#bg)"/>
+  <circle cx="1190" cy="60" r="80" fill="#2A9D8F" opacity="0.06"/>
+  <circle cx="80" cy="600" r="64" fill="#E9C46A" opacity="0.10"/>
+
+  <!-- ===================== LEFT: POOR ===================== -->
+  <rect x="52" y="28" width="430" height="500" rx="22" fill="#E2A899" opacity="0.45"/>
+  <rect x="48" y="24" width="430" height="500" rx="22" fill="url(#redZone)" stroke="#C9492A" stroke-width="3"/>
+  <path d="M48,46 a22,22 0 0 1 22,-22 h386 a22,22 0 0 1 22,22 v36 h-430 Z" fill="#D9542F"/>
+  <text x="263" y="63" text-anchor="middle" font-size="25" font-weight="700" fill="#FFFFFF" letter-spacing="1">POOR SCHEDULING</text>
+
+  <!-- card 1: clock -->
+  <rect x="74" y="100" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#D95430" stroke-width="2.5"/>
+  <circle cx="120" cy="143" r="25" fill="#FBD9CE" stroke="#D95430" stroke-width="3.5"/>
+  <line x1="120" y1="143" x2="120" y2="126" stroke="#D95430" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="120" y1="143" x2="133" y2="150" stroke="#D95430" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="162" y="136" font-size="21" font-weight="700" fill="#9E3A22">Long job wait times</text>
+  <text x="162" y="162" font-size="15" fill="#A85540">jobs sit idle in the queue</text>
+
+  <!-- card 2: unbalanced servers -->
+  <rect x="74" y="196" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#D95430" stroke-width="2.5"/>
+  <rect x="100" y="246" width="15" height="22" rx="2" fill="#D95430"/>
+  <rect x="119" y="226" width="15" height="42" rx="2" fill="#D95430"/>
+  <rect x="138" y="252" width="15" height="16" rx="2" fill="#EBA992"/>
+  <text x="162" y="232" font-size="21" font-weight="700" fill="#9E3A22">Idle or overloaded servers</text>
+  <text x="162" y="258" font-size="15" fill="#A85540">load is poorly distributed</text>
+
+  <!-- card 3: energy/flame -->
+  <rect x="74" y="292" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#D95430" stroke-width="2.5"/>
+  <path d="M120,313 C109,328 103,338 103,349 a17,17 0 0 0 34,0 c0,-9 -7,-13 -9,-21 c-4,8 -10,6 -8,-15 Z" fill="#E2613A"/>
+  <text x="162" y="328" font-size="21" font-weight="700" fill="#9E3A22">High energy waste</text>
+  <text x="162" y="354" font-size="15" fill="#A85540">power burned with no value</text>
+
+  <!-- card 4: SLA sad -->
+  <rect x="74" y="388" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#D95430" stroke-width="2.5"/>
+  <circle cx="120" cy="431" r="25" fill="#FBD9CE" stroke="#D95430" stroke-width="3.5"/>
+  <circle cx="111" cy="425" r="3.2" fill="#9E3A22"/>
+  <circle cx="129" cy="425" r="3.2" fill="#9E3A22"/>
+  <path d="M108,444 Q120,434 132,444" stroke="#9E3A22" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <text x="162" y="424" font-size="21" font-weight="700" fill="#9E3A22">SLA violations</text>
+  <text x="162" y="450" font-size="15" fill="#A85540">unhappy users, lost trust</text>
+
+  <!-- ===================== CENTER ARROW ===================== -->
+  <path d="M500,274 L780,274" stroke="url(#arrowGrad)" stroke-width="16" fill="none" marker-end="url(#ah)" stroke-linecap="round"/>
+  <rect x="552" y="248" width="184" height="62" rx="14" fill="#06182E" opacity="0.4"/>
+  <rect x="548" y="244" width="184" height="62" rx="14" fill="#0B2545"/>
+  <text x="640" y="272" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">Smart</text>
+  <text x="640" y="296" text-anchor="middle" font-size="20" font-weight="700" fill="#E9C46A">Scheduler</text>
+
+  <!-- ===================== RIGHT: BETTER ===================== -->
+  <rect x="806" y="28" width="430" height="500" rx="22" fill="#9CCFC6" opacity="0.45"/>
+  <rect x="802" y="24" width="430" height="500" rx="22" fill="url(#greenZone)" stroke="#1A7568" stroke-width="3"/>
+  <path d="M802,46 a22,22 0 0 1 22,-22 h386 a22,22 0 0 1 22,22 v36 h-430 Z" fill="#218377"/>
+  <text x="1017" y="63" text-anchor="middle" font-size="25" font-weight="700" fill="#FFFFFF" letter-spacing="1">BETTER SCHEDULING</text>
+
+  <!-- card 1: lightning -->
+  <rect x="828" y="100" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#218377" stroke-width="2.5"/>
+  <path d="M878,119 L863,148 L876,148 L869,170 L891,138 L878,138 Z" fill="#2A9D8F"/>
+  <text x="916" y="136" font-size="21" font-weight="700" fill="#176055">Faster job turnaround</text>
+  <text x="916" y="162" font-size="15" fill="#357F73">lower latency end-to-end</text>
+
+  <!-- card 2: balance -->
+  <rect x="828" y="196" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#218377" stroke-width="2.5"/>
+  <line x1="874" y1="224" x2="874" y2="268" stroke="#218377" stroke-width="3.5"/>
+  <line x1="852" y1="232" x2="896" y2="232" stroke="#218377" stroke-width="3.5"/>
+  <path d="M852,232 l-8,17 h16 Z" fill="#BBE6DF" stroke="#218377" stroke-width="2"/>
+  <path d="M896,232 l-8,17 h16 Z" fill="#BBE6DF" stroke="#218377" stroke-width="2"/>
+  <text x="916" y="232" font-size="21" font-weight="700" fill="#176055">Balanced server load</text>
+  <text x="916" y="258" font-size="15" fill="#357F73">resources used efficiently</text>
+
+  <!-- card 3: money (gold) -->
+  <rect x="828" y="292" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#C79A33" stroke-width="2.5"/>
+  <ellipse cx="874" cy="350" rx="26" ry="9" fill="#F4E2A8" stroke="#D7A93B" stroke-width="2.5"/>
+  <ellipse cx="874" cy="338" rx="26" ry="9" fill="#F7E9B8" stroke="#D7A93B" stroke-width="2.5"/>
+  <ellipse cx="874" cy="326" rx="26" ry="9" fill="#FBF1CC" stroke="#D7A93B" stroke-width="2.5"/>
+  <text x="916" y="328" font-size="21" font-weight="700" fill="#8B6914">Lower power bills</text>
+  <text x="916" y="354" font-size="15" fill="#A9821F">direct cost &amp; carbon savings</text>
+
+  <!-- card 4: happy -->
+  <rect x="828" y="388" width="378" height="86" rx="14" fill="#FFFFFF" stroke="#218377" stroke-width="2.5"/>
+  <circle cx="874" cy="431" r="25" fill="#CDEBE4" stroke="#218377" stroke-width="3.5"/>
+  <circle cx="865" cy="425" r="3.2" fill="#176055"/>
+  <circle cx="883" cy="425" r="3.2" fill="#176055"/>
+  <path d="M862,436 Q874,448 886,436" stroke="#176055" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <text x="916" y="424" font-size="21" font-weight="700" fill="#176055">Happy customers</text>
+  <text x="916" y="450" font-size="15" fill="#357F73">SLAs met, trust retained</text>
+
+  <!-- ===================== BOTTOM IMPACT ===================== -->
+  <rect x="164" y="564" width="960" height="64" rx="16" fill="#06182E" opacity="0.4"/>
+  <rect x="160" y="560" width="960" height="64" rx="16" fill="#0B2545"/>
+  <text x="640" y="592" text-anchor="middle" font-size="19" font-weight="700" fill="#FFFFFF">Data centers use 1&#8211;2% of global electricity</text>
+  <text x="640" y="614" text-anchor="middle" font-size="16" fill="#E9C46A">smarter scheduling directly cuts cost and carbon</text>
+</svg>

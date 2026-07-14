@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 650" width="1280" height="650" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5FAFF"/>
+      <stop offset="1" stop-color="#ECF7F6"/>
+    </linearGradient>
+    <linearGradient id="dcGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#13386B"/>
+      <stop offset="1" stop-color="#0B2545"/>
+    </linearGradient>
+    <linearGradient id="agentGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#33B4A4"/>
+      <stop offset="1" stop-color="#2A9D8F"/>
+    </linearGradient>
+    <marker id="aBlue" markerWidth="13" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0,0 L13,5.5 L0,11 Z" fill="#0B2545"/>
+    </marker>
+    <marker id="aGreen" markerWidth="13" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0,0 L13,5.5 L0,11 Z" fill="#2A9D8F"/>
+    </marker>
+    <marker id="aCoral" markerWidth="13" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0,0 L13,5.5 L0,11 Z" fill="#E76F51"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="650" fill="url(#bg2)"/>
+  <circle cx="1190" cy="60" r="80" fill="#2A9D8F" opacity="0.06"/>
+  <circle cx="80" cy="600" r="64" fill="#E9C46A" opacity="0.10"/>
+
+  <!-- ===== DATA CENTER (top) ===== -->
+  <rect x="444" y="44" width="400" height="120" rx="18" fill="#9FB0C6" opacity="0.4"/>
+  <rect x="440" y="40" width="400" height="120" rx="18" fill="url(#dcGrad)"/>
+  <rect x="478" y="70" width="60" height="60" rx="6" fill="#1B4A82" stroke="#5B86B8" stroke-width="2"/>
+  <rect x="486" y="80" width="44" height="8" rx="2" fill="#E9C46A"/>
+  <rect x="486" y="94" width="44" height="8" rx="2" fill="#2A9D8F"/>
+  <rect x="486" y="108" width="44" height="8" rx="2" fill="#5B86B8"/>
+  <text x="618" y="94" text-anchor="middle" font-size="27" font-weight="700" fill="#FFFFFF">Data Center</text>
+  <text x="618" y="122" text-anchor="middle" font-size="16" fill="#9FC0E6">the environment</text>
+
+  <!-- ===== RL AGENT (bottom) ===== -->
+  <rect x="444" y="434" width="400" height="120" rx="18" fill="#9AC9C1" opacity="0.4"/>
+  <rect x="440" y="430" width="400" height="120" rx="18" fill="url(#agentGrad)"/>
+  <circle cx="508" cy="490" r="30" fill="#1E7D72" stroke="#BDEAE3" stroke-width="2.5"/>
+  <circle cx="498" cy="483" r="5" fill="#BDEAE3"/>
+  <circle cx="518" cy="483" r="5" fill="#BDEAE3"/>
+  <circle cx="500" cy="500" r="5" fill="#BDEAE3"/>
+  <circle cx="520" cy="500" r="5" fill="#BDEAE3"/>
+  <line x1="498" y1="483" x2="518" y2="483" stroke="#BDEAE3" stroke-width="2"/>
+  <line x1="498" y1="483" x2="500" y2="500" stroke="#BDEAE3" stroke-width="2"/>
+  <line x1="518" y1="483" x2="520" y2="500" stroke="#BDEAE3" stroke-width="2"/>
+  <line x1="500" y1="500" x2="520" y2="500" stroke="#BDEAE3" stroke-width="2"/>
+  <text x="618" y="484" text-anchor="middle" font-size="27" font-weight="700" fill="#FFFFFF">RL Agent</text>
+  <text x="618" y="512" text-anchor="middle" font-size="16" fill="#D6F0EB">the policy network</text>
+
+  <!-- ===== STATE arrow (left, down) ===== -->
+  <path d="M388,164 C300,240 300,350 388,426" stroke="#0B2545" stroke-width="5.5" fill="none" marker-end="url(#aBlue)"/>
+  <rect x="122" y="251" width="188" height="96" rx="14" fill="#C7CED8" opacity="0.5"/>
+  <rect x="118" y="247" width="188" height="96" rx="14" fill="#FFFFFF" stroke="#0B2545" stroke-width="3"/>
+  <text x="212" y="279" text-anchor="middle" font-size="21" font-weight="700" fill="#0B2545">STATE</text>
+  <text x="212" y="305" text-anchor="middle" font-size="15" fill="#3A4A60">queue + machine</text>
+  <text x="212" y="325" text-anchor="middle" font-size="15" fill="#3A4A60">status + power</text>
+
+  <!-- ===== ACTION arrow (right, up) ===== -->
+  <path d="M892,426 C980,350 980,240 892,164" stroke="#2A9D8F" stroke-width="5.5" fill="none" marker-end="url(#aGreen)"/>
+  <rect x="978" y="251" width="188" height="96" rx="14" fill="#B8D4CE" opacity="0.5"/>
+  <rect x="974" y="247" width="188" height="96" rx="14" fill="#FFFFFF" stroke="#218377" stroke-width="3"/>
+  <text x="1068" y="279" text-anchor="middle" font-size="21" font-weight="700" fill="#1E7D72">ACTION</text>
+  <text x="1068" y="305" text-anchor="middle" font-size="15" fill="#357F73">assign job</text>
+  <text x="1068" y="325" text-anchor="middle" font-size="15" fill="#357F73">to a server</text>
+
+  <!-- ===== REWARD arrow (center, down) ===== -->
+  <path d="M640,164 L640,426" stroke="#E76F51" stroke-width="5.5" fill="none" marker-end="url(#aCoral)"/>
+  <rect x="550" y="251" width="188" height="96" rx="14" fill="#E2B3A6" opacity="0.5"/>
+  <rect x="546" y="247" width="188" height="96" rx="14" fill="#FCE4DD" stroke="#D95430" stroke-width="3"/>
+  <text x="640" y="279" text-anchor="middle" font-size="21" font-weight="700" fill="#D9542F">REWARD</text>
+  <text x="640" y="305" text-anchor="middle" font-size="15" fill="#9E3A22">+ utilization</text>
+  <text x="640" y="325" text-anchor="middle" font-size="15" fill="#9E3A22">&#8722; latency &#8722; energy</text>
+
+  <!-- ===== insight chips (corners) ===== -->
+  <rect x="56" y="40" width="224" height="64" rx="12" fill="#DFF3EF" stroke="#218377" stroke-width="2"/>
+  <text x="168" y="68" text-anchor="middle" font-size="15" fill="#357F73">decisions shape the</text>
+  <text x="168" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#176055">future queue</text>
+
+  <rect x="1000" y="40" width="224" height="64" rx="12" fill="#DFF3EF" stroke="#218377" stroke-width="2"/>
+  <text x="1112" y="68" text-anchor="middle" font-size="15" fill="#357F73">feedback is</text>
+  <text x="1112" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#176055">delayed in time</text>
+
+  <rect x="56" y="486" width="224" height="64" rx="12" fill="#DFF3EF" stroke="#218377" stroke-width="2"/>
+  <text x="168" y="514" text-anchor="middle" font-size="15" fill="#357F73">optimizes the</text>
+  <text x="168" y="534" text-anchor="middle" font-size="16" font-weight="700" fill="#176055">long-term return</text>
+
+  <rect x="1000" y="486" width="224" height="64" rx="12" fill="#DFF3EF" stroke="#218377" stroke-width="2"/>
+  <text x="1112" y="514" text-anchor="middle" font-size="15" fill="#357F73">adapts to shifting</text>
+  <text x="1112" y="534" text-anchor="middle" font-size="16" font-weight="700" fill="#176055">workloads</text>
+
+  <!-- ===== bottom summary ===== -->
+  <rect x="224" y="582" width="840" height="56" rx="16" fill="#06182E" opacity="0.4"/>
+  <rect x="220" y="578" width="840" height="56" rx="16" fill="#0B2545"/>
+  <text x="640" y="606" text-anchor="middle" font-size="18" font-weight="700" fill="#FFFFFF">RL optimizes <tspan fill="#E9C46A">cumulative</tspan> impact &#8212; not just instant decisions</text>
+  <text x="640" y="624" text-anchor="middle" font-size="13" fill="#9FC0E6">sequential, delayed-reward decisions are exactly what RL is built for</text>
+</svg>

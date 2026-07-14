@@ -1,0 +1,39 @@
+% ============================================================
+%  future.tex  —  FRAGMENT, included via \input from main.tex
+%  Roadmap: conference-work targets and longer-term extensions.
+%  Uses colors/styles defined in main.tex (body-only, no \usepackage).
+% ============================================================
+
+% ============================================================
+\section{Roadmap}
+% ============================================================
+
+% ---- Slide: Conference work target & extensions ------------
+\begin{frame}{Conference Work Target}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+      \begin{block}{Targets (this submission)}
+        \begin{minipage}[t][3cm]{\linewidth}
+        \begin{enumerate}
+          \item \textbf{Ablation study} across different \emph{reward functions}
+          \item \textbf{Evaluation} on different \emph{job generators}
+          \item \textbf{Comparison} against different \emph{greedy agents}
+        \end{enumerate}
+        \end{minipage}
+      \end{block}
+
+    \column{0.48\textwidth}
+      \begin{alertblock}{Extensions (beyond)}
+        \begin{minipage}[t][3cm]{\linewidth}
+        \begin{enumerate}
+          \item \textbf{Joint DC} --- co-optimise \emph{liquid cooling} and \emph{scheduling} together
+          \item \textbf{Pluggable env} --- drop-in interface for other benchmarks
+        \end{enumerate}
+        \end{minipage}
+      \end{alertblock}
+  \end{columns}
+
+  \vspace{0.6em}
+  \centering
+  \small\textcolor{DeepBlue}{\textbf{Goal:}} a rigorously benchmarked agent today, a reusable co-optimisation platform next.
+\end{frame}

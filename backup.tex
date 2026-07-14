@@ -1,0 +1,65 @@
+% ============================================================
+%  backup.tex  —  FRAGMENT, included via \input from main.tex
+%  Backup slides: MDP components that are UNCHANGED from v1 to v2.
+%  Placed behind \appendix so they are excluded from the main
+%  frame count and the outline. Uses \notebar (defined in abel.tex)
+%  and colors/styles from main.tex.
+% ============================================================
+
+\appendix
+
+% ============================================================
+\section{Backup Slides}
+% ============================================================
+
+% ---- Backup: Action (UNCHANGED) ----------------------------
+\begin{frame}{Action $\;a_t$ \hfill \small\textcolor{SkyBlue!70!black}{(unchanged)}}
+  \small
+  A single \textbf{discrete} choice over the visible queue:
+  $$ \mathcal{A} = \{0, 1, 2, \dots, K\} = \text{Discrete}(K{+}1) $$
+  \begin{itemize}
+    \item $a_t = 0$ (\textbf{no-op}): leave the queue ordering unchanged.
+    \item $a_t = k \in \{1,\dots,K\}$: \textbf{promote} the $k$-th visible queued
+          job to the front, so it is considered first on the next dispatch.
+  \end{itemize}
+  \begin{block}{Key idea}
+    The agent never dispatches jobs directly; it only \emph{reprioritises}.
+    The underlying scheduler then greedily packs jobs that fit onto free nodes.
+  \end{block}
+  \notebar{$K$ = number of visible queued jobs \;\textbar\; $a_t$ = action at step $t$ \;\textbar\; $k$ = chosen queue position}
+\end{frame}
+
+% ---- Backup: Transition (UNCHANGED) ------------------------
+\begin{frame}{Transition $\;P(s_{t+1}\mid s_t, a_t)$ \hfill \small\textcolor{SkyBlue!70!black}{(unchanged)}}
+  \small
+  Each step advances the simulation by $\Delta t$ seconds:
+  \begin{enumerate}
+    \item \textbf{Apply the action}: if $a_t = k > 0$, move that job to the head of the queue.
+    \item \textbf{Step the scheduler} by $\Delta t$: dispatch queued jobs onto free
+          nodes (greedy packing), advance running jobs, release nodes from jobs that finish.
+    \item \textbf{New arrivals}: jobs arrive stochastically (Poisson-like
+          inter-arrival times set by the \emph{offered load}).
+  \end{enumerate}
+  \begin{block}{Source of stochasticity}
+    Job arrivals and the workload sampled each episode make the next state only
+    \emph{partially} predictable from $(s_t, a_t)$.
+  \end{block}
+  \notebar{$\Delta t$ = simulation step (seconds) \;\textbar\; $a_t$ = action at step $t$ \;\textbar\; $k$ = promoted job index}
+\end{frame}
+
+% ---- Backup: Horizon & Objective (UNCHANGED) ---------------
+\begin{frame}{Horizon \& Objective \hfill \small\textcolor{SkyBlue!70!black}{(unchanged)}}
+  \small
+  An episode \textbf{truncates} when either
+  $$ t \geq T \quad(\text{24\,h elapsed}) \qquad\text{or}\qquad \text{queue \& running sets are empty (drained).} $$
+  There is no absorbing failure state, so \texttt{terminated} is always \texttt{False};
+  episodes end only by truncation.
+
+  \begin{block}{Learning objective}
+    The agent learns a policy $\pi_\theta(a_t \mid s_t)$ maximising the expected
+    discounted return:
+    $$ \max_{\theta}\; \mathbb{E}_{\pi_\theta}\!\left[\sum_{t=0}^{H-1} \gamma^{\,t}\, r_t\right] $$
+    i.e.\ \textbf{keep the cluster busy} while draining the queue.
+  \end{block}
+  \notebar{$t,T$ = elapsed / horizon time \;\textbar\; $H$ = steps per episode \;\textbar\; $\gamma$ = discount factor \;\textbar\; $r_t$ = reward at step $t$}
+\end{frame}
