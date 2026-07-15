@@ -1,167 +1,25 @@
 % ============================================================
-%  Beamer Presentation Template
-%  Topic: RL-based Scheduling for Data Centers
+%  main.tex  —  OVERLEAF ENTRY POINT (kept outside the dated folders)
+%  Simpler deck (2026-07-14 update): the Cross--Self Attention policy
+%  architecture slide only.  The full 2026-06-28 deck is a separate
+%  document: update_2026_06_28/main.tex.
 % ============================================================
-\documentclass[aspectratio=169]{beamer}  % 16:9 widescreen (like PowerPoint default)
+\input{preamble.tex}
 
-% ---------- Theme -------------------------------------------
-\usetheme{Madrid}
-\usecolortheme{default}
-% Other popular themes: AnnArbor, Berlin, Boadilla, CambridgeUS,
-%   Copenhagen, Darmstadt, Dresden, Frankfurt, Hannover, Luebeck,
-%   Malmoe, Montpellier, PaloAlto, Pittsburgh, Rochester, Singapore,
-%   Szeged, Warsaw
-% Other colour themes: albatross, beaver, beetle, crane, dolphin,
-%   dove, fly, lily, orchid, rose, seagull, seahorse, spruce, whale, wolverine
-
-% ---------- Packages ----------------------------------------
-\usepackage{graphicx}        % Images
-\usepackage{booktabs}        % Nice tables (\toprule, \midrule, \bottomrule)
-\usepackage{amsmath}         % Math
-\usepackage{pifont}          % Checkmark / cross symbols
-\usepackage{hyperref}        % Clickable links
-\usepackage{tikz}            % Diagrams (optional)
-\usetikzlibrary{arrows.meta,positioning,calc}
-\usetikzlibrary{shadows.blur}
-\usepackage{algorithm2e}     % Pseudocode (optional)
-\usepackage[scaled=0.95]{helvet} % Clean corporate sans-serif
-\renewcommand{\familydefault}{\sfdefault}
-\usepackage{appendixnumberbeamer} % Exclude \appendix (backup) slides from the main slide count
-
-% Symbols used in the comparison table
-\newcommand{\cmark}{\ding{51}}
-\newcommand{\xmark}{\ding{55}}
-
-\newcommand{\notebar}[1]{%
-  \vfill
-  {\color{DeepBlue!30!white}\hrule height 0.4pt}
-  \vspace{2pt}%
-  {\scriptsize\textcolor{DeepBlue!75!black}{\textbf{Notation:}\; #1}}%
-}
-
-% Wrap a figure in a rounded white card with a soft drop shadow.
-% Usage: \framedgraphic{filename}  or  \framedgraphic[height=0.7\textheight]{filename}
-\newcommand{\framedgraphic}[2][width=\linewidth]{%
-  \begin{tikzpicture}
-    \node[draw=DeepBlue!18, line width=0.6pt, rounded corners=5pt,
-          fill=white, inner sep=3pt,
-          blur shadow={shadow blur steps=6, shadow xshift=0pt,
-                       shadow yshift=-2pt, shadow opacity=40}]
-      {\includegraphics[#1]{#2}};
-  \end{tikzpicture}%
-}
-
-\usepackage{svg}
-\svgpath{{images/}}
-\graphicspath{{images/}}
-\svgsetup{inkscapelatex=false}
-
-% ---------- Visual style (HPE-aligned corporate theme) -------
-\definecolor{DeepBlue}{HTML}{0D2535}   % Primary dark slate
-\definecolor{SkyBlue}{HTML}{01A982}     % HPE green (secondary accent)
-\definecolor{WarmGold}{HTML}{E9C46A}
-\definecolor{SoftCoral}{HTML}{E76F51}   % Alert / "changed" accent
-\definecolor{LightMint}{HTML}{E8F6F2}
-\definecolor{CanvasLeft}{HTML}{FFFFFF}
-\definecolor{CanvasRight}{HTML}{F3FBF8}
-\definecolor{HPEGreen}{HTML}{01A982}
-
-\setbeamercolor{structure}{fg=DeepBlue}
-\setbeamercolor{title}{fg=DeepBlue}
-\setbeamercolor{frametitle}{fg=DeepBlue,bg=LightMint}
-\setbeamerfont{frametitle}{series=\bfseries}
-\setbeamercolor{block title}{fg=white,bg=DeepBlue}
-\setbeamercolor{block body}{bg=LightMint}
-\setbeamercolor{alertblock title}{fg=white,bg=SoftCoral}
-\setbeamercolor{alertblock body}{bg=SoftCoral!10}
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{itemize item}{\color{SkyBlue}$\triangleright$}
-\setbeamertemplate{blocks}[rounded][shadow=true]
-
-% ---- Frame title: clean band with an HPE-green underline ----
-\setbeamertemplate{frametitle}{%
-  \nointerlineskip
-  \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.5cm,rightskip=0.5cm,sep=5pt]{frametitle}%
-    \usebeamerfont{frametitle}\insertframetitle%
-  \end{beamercolorbox}%
-  {\color{SkyBlue}\hrule height 1.4pt}%
-}
-
-% ---- Corporate footline: title | section | slide number ----
-\setbeamercolor{title in head/foot}{fg=white,bg=DeepBlue}
-\setbeamercolor{section in head/foot}{fg=white,bg=SkyBlue}
-\setbeamercolor{frame in head/foot}{fg=DeepBlue,bg=LightMint}
-\setbeamerfont{title in head/foot}{size=\scriptsize}
-\setbeamerfont{section in head/foot}{size=\scriptsize}
-\setbeamerfont{frame in head/foot}{size=\scriptsize}
-\setbeamertemplate{footline}{%
-  \leavevmode%
-  \hbox{%
-    \begin{beamercolorbox}[wd=.36\paperwidth,ht=2.6ex,dp=1.1ex,leftskip=.3cm]{title in head/foot}%
-      \usebeamerfont{title in head/foot}\insertshorttitle%
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.46\paperwidth,ht=2.6ex,dp=1.1ex,center]{section in head/foot}%
-      \usebeamerfont{section in head/foot}\insertsectionhead%
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.18\paperwidth,ht=2.6ex,dp=1.1ex,rightskip=.3cm]{frame in head/foot}%
-      \hfill\usebeamerfont{frame in head/foot}\insertframenumber\,/\,\inserttotalframenumber%
-    \end{beamercolorbox}%
-  }%
-  \vskip0pt%
-}
-
-% ---- Background: clean subtle gradient (no decorative blobs) -
-\setbeamertemplate{background canvas}{%
-  \begin{tikzpicture}[remember picture,overlay]
-    \path[shade,left color=CanvasLeft,right color=CanvasRight]
-      (current page.south west) rectangle (current page.north east);
-  \end{tikzpicture}%
-}
-
-% ---------- Title info --------------------------------------
-\title[RL Scheduling for DCs]{RL-based Scheduling for Data Centers}
-\subtitle{A Reinforcement Learning Approach}
-
-\date{June 2026}
-% Show the logo only if a logo image is actually present (keeps local builds happy)
-\IfFileExists{logo.pdf}{\logo{\includegraphics[height=0.6cm]{logo}}}{%
-  \IfFileExists{logo.png}{\logo{\includegraphics[height=0.6cm]{logo}}}{%
-    \IfFileExists{logo.jpg}{\logo{\includegraphics[height=0.6cm]{logo}}}{}}}
-
-% ============================================================
 \begin{document}
 
 % ---- Title slide -------------------------------------------
 \begin{frame}[plain]
   \vfill
   \begin{center}
-    {\Huge\bfseries\color{DeepBlue} RL-based Scheduling for Data Centers}\\[0.7em]
+    {\Huge\bfseries\color{DeepBlue} Cross--Self Attention Scheduling Policy}\\[0.7em]
     {\color{SkyBlue}\rule{0.55\linewidth}{1.6pt}}\\[0.7em]
-    {\Large\color{SkyBlue} A Reinforcement Learning Approach}\\[1.4em]
-    {\large\color{DeepBlue!80!black} June 2026}
+    {\Large\color{SkyBlue} Architecture overview}\\[1.4em]
+    {\large\color{DeepBlue!80!black} July 2026}
   \end{center}
   \vfill
 \end{frame}
 
-% ---- Table of contents -------------------------------------
-\begin{frame}{Outline}
-  \tableofcontents
-\end{frame}
+\input{update_2026_07_14/architecture.tex}
 
-\input{krishu.tex}
-
-\input{abel.tex}
-
-\input{results.tex}
-
-
-\input{future.tex}
-
-\begin{frame}
-  \centering
-  \Huge\textbf{Thank You}\\[0.8em]
-\end{frame}
-
-% ---- Backup slides (unchanged MDP components) --------------
-\input{backup.tex}
 \end{document}

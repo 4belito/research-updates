@@ -1,0 +1,157 @@
+% ============================================================
+%  update_2026_07_14/architecture.tex  (FRAGMENT)
+%  Cross--Self Attention policy slide. \input from the root main.tex,
+%  which supplies the shared preamble (colors, \notebar, tikz, ...).
+% ============================================================
+
+% ============================================================
+%  Policy architecture: Cross–Self Attention encoder
+% ============================================================
+\section{Policy Architecture}
+
+% ---- Slide: Cross–Self Attention encoder + head trio -------
+\begin{frame}{Cross--Self Attention Policy}
+  % Soft pastel block palette.
+  \definecolor{Aorange}{HTML}{F6C28B}   % (multi-head) attention
+  \definecolor{Ayellow}{HTML}{F4E3A1}   % add & norm
+  \definecolor{Ablue}{HTML}{AFCBEA}     % feed forward
+  \definecolor{Apink}{HTML}{F3C4C4}     % embeddings / inputs
+  \definecolor{Apurple}{HTML}{CDBDE8}   % output head (linear)
+  \definecolor{Agreen}{HTML}{BFE3C0}    % softmax
+  \definecolor{Ateal}{HTML}{9AD1C4}     % value / critic head
+
+  \begin{columns}[T,onlytextwidth]
+    % ---------------- Left: the diagram --------------------
+    \column{0.62\textwidth}
+    \centering
+    \resizebox{!}{0.84\textheight}{%
+    \begin{tikzpicture}[
+        font=\scriptsize,
+        >={Stealth[length=2mm]},
+        box/.style={rounded corners=2pt, draw=DeepBlue!60!black, line width=0.5pt,
+                    minimum width=3.3cm, minimum height=0.66cm, align=center},
+        attn/.style={box, fill=Aorange},
+        norm/.style={box, fill=Ayellow, minimum height=0.40cm},
+        ff/.style={box, fill=Ablue},
+        emb/.style={box, fill=Apink, minimum width=2.6cm, minimum height=0.9cm,
+                    rounded corners=8pt},
+        head/.style={box, fill=Apurple},
+        soft/.style={box, fill=Agreen, minimum width=2.2cm},
+        inp/.style={align=center, font=\scriptsize\itshape, text=DeepBlue!85!black},
+        flow/.style={->, draw=DeepBlue!70!black, line width=0.6pt},
+        kv/.style={->, draw=SoftCoral!85!black, line width=0.6pt},
+        elbl/.style={font=\tiny, text=DeepBlue!75!black, inner sep=1pt},
+      ]
+      % ----- Central processing spine (bottom -> top) ------
+      \foreach \i in {2,1} {
+        \node[emb, fill=Apink!80, draw=SoftCoral!55!black,
+              xshift=\i*0.12cm, yshift=\i*0.14cm] at (0,0.2) {};
+      }
+      \node[emb] (qemb) at (0,0.2) {Queue Embed.\\{\scriptsize$V_q$ tokens}};
+      \node[attn, above=1.3cm of qemb] (cross) {Multi-Head-Attention\\{ Queue $\rightarrow$ Running}};
+      \node[norm, above=0.14cm of cross] (cnorm) {Add \& Norm};
+      \node[attn, above=0.75cm of cnorm] (self) {Multi-Head Attention\\{Queue $\leftrightarrow$ Queue}};
+      \node[norm, above=0.14cm of self] (snorm) {Add \& Norm};
+      \node[ff,   above=0.6cm of snorm] (ff) {Per-job MLP};
+      \node[norm, above=0.14cm of ff] (fnorm) {Add \& Norm};
+      \node[head, above=0.8cm of fnorm] (head) {Pointer MLP\\{\scriptsize shared per job $\rightarrow$ $V_q$ logits}};
+      \node[soft, above=0.45cm of head] (soft) {Softmax\\{\scriptsize over feasible $+$ no-op}};
+      \node[inp, above=0.4cm of soft] (out) {Dispatch: a job or the no-op};
+
+      % ----- Critic (value) head: parallel branch ----------
+      \node[box, fill=Ateal, minimum width=2.2cm, right=1.0cm of head] (val) {Value MLP};
+      \node[inp, above=0.4cm of val] (vout) {$\hat V(s)$ (critic)};
+
+      % ----- Separate learned no-op head (pointer, action 0) -
+      \node[head, minimum width=2.0cm, left=1.0cm of head] (noop) {No-op MLP\\{\scriptsize pool jobs $\rightarrow$ 1 logit}};
+
+      % ----- K,V source: running-token stack + ctx token ---
+      \foreach \i in {2,1} {
+        \node[emb, fill=Apink!80, draw=SoftCoral!55!black,
+              xshift=\i*0.12cm, yshift=\i*0.14cm] at (-3.7,0.2) {};
+      }
+      \node[emb] (remb) at (-3.7,0.2) {Running Embed.\\{\scriptsize$V_r$ tokens}};
+      % ctx embedding: separate always-valid token, SAME size, placed below-left
+      \node[emb, fill=LightMint, draw=SkyBlue!55!black] (ctxtok) at (-6.5,0.2)
+            {Ctx Embed.\\{\scriptsize always-valid token}};
+
+      % ----- Input labels (running and context separated) --
+      \node[inp] (qin) at (0,-1.8) {Queue jobs\\$V_q\times F_q$};
+      \node[inp] (rin) at (-3.7,-1.8) {Running jobs\\$V_r\times F_r$};
+      \node[inp] (cin) at (-6.5,-1.8) {Context $C$ \\};
+
+      % ---------------- Main (query) flow ------------------
+      \draw[flow] (qin) -- (qemb);
+      % running features and context are CONCATENATED into the running embedding
+      \node[draw=DeepBlue!60, circle, inner sep=0.8pt, fill=white, font=\scriptsize]
+            (rcat) at (-3.7,-0.8) {$\oplus$};
+      \node[elbl, right=1pt of rcat] {concat};
+      \draw[flow] (rin) -- (rcat);
+      \draw[flow] (rcat) -- (remb);
+      % context: straight (orthogonal) branch -> its own ctx embed, and into the concat
+      \coordinate (cj) at (-6.5,-1.05);
+      \draw[draw=DeepBlue!70!black, line width=0.6pt] (cin) -- (cj);
+      \draw[flow] (cj) -| (ctxtok.south);
+      \draw[flow] (cj) |- (rcat.west);
+      \draw[flow] (qemb) -- (cross) node[elbl, midway, right=1pt] {Q};
+      \draw[flow] (cnorm) -- (self);
+      \draw[flow] (self) -- (snorm);
+      \draw[flow] (snorm) -- (ff);
+      \draw[flow] (ff) -- (fnorm);
+      \draw[flow] (fnorm) -- (head);
+      \draw[flow] (head) -- (soft);
+      \draw[flow] (soft) -- (out);
+      \draw[flow] ($(fnorm.north)!0.5!(head.south)$) -| (val);
+      \draw[flow] (val) -- (vout);
+      \draw[flow] ($(fnorm.north)!0.5!(head.south)$) -| (noop);
+      \draw[flow] (noop.north) |- (soft.west);
+
+      % ----- K,V feed: running deck + ctx embedding --------
+      \draw[kv] (remb.north) |- (cross.west)
+        node[elbl, near end, above=1pt] {K,\,V: running $\oplus$ ctx};
+      \draw[kv] (ctxtok.north) |- (cross.west);
+
+      % ----- Residual (skip) connections (branch off trunk) -
+      \draw[flow] ($(cnorm.north)!0.5!(self.south)$) -- ++(2.0,0) |- (snorm.east);
+      \draw[flow] ($(snorm.north)!0.5!(ff.south)$) -- ++(2.0,0) |- (fnorm.east);
+
+      % ----- N x bracket around the self-attention block ---
+      \draw[dashed, rounded corners=3pt, DeepBlue!45, line width=0.5pt]
+        ($(self.south west)+(-0.4,-0.12)$) rectangle ($(fnorm.north east)+(0.45,0.12)$);
+      \node[font=\normalsize\bfseries, text=DeepBlue!70!black, anchor=east]
+        at ($(self.south west)!0.5!(fnorm.north west)+(-0.55,0)$) {$N\times$};
+    \end{tikzpicture}}
+
+    % ---------------- Right: reading guide -----------------
+    \column{0.4\textwidth}
+    \footnotesize
+    \textbf{Encode once, then decide.}
+    \begin{itemize}\setlength\itemsep{3pt}
+      \item \textbf{Cross first:} each queued job attends the \emph{running}
+            jobs (soon-to-free nodes) $+$ an \emph{always-valid ctx token} --
+            release-aware, and defined even with \emph{no running jobs}.
+      \item \textbf{Self next ($N\times$):} the queue self-attends, scoring
+            each job \emph{relative to the rest}.
+      \item \textbf{Two action heads:} a \textbf{pointer} MLP (shared per job)
+            gives one logit per job; a \textbf{no-op} MLP pools the jobs into
+            action-0. Joined in one softmax over $V_q{+}1$.
+      \item \textbf{Masking:} padded / infeasible jobs $\to -\infty$ pre-softmax,
+            so only feasible jobs \& the no-op compete.
+      \item \textbf{Critic:} a \textbf{value} MLP scores $\hat V(s)$ for PPO.
+    \end{itemize}
+
+    % \vspace{0.3em}
+    % \footnotesize
+    % \begin{tabular}{@{}ll@{}}
+    %   \tikz\node[fill=Apink,draw=DeepBlue!60,rounded corners=1pt,minimum width=0.5cm,minimum height=0.28cm]{}; & Embedding / inputs\\[2pt]
+    %   \tikz\node[fill=Aorange,draw=DeepBlue!60,rounded corners=1pt,minimum width=0.5cm,minimum height=0.28cm]{}; & (Multi-head) attention\\[2pt]
+    %   \tikz\node[fill=Ayellow,draw=DeepBlue!60,rounded corners=1pt,minimum width=0.5cm,minimum height=0.28cm]{}; & Add \& Norm\\[2pt]
+    %   \tikz\node[fill=Ablue,draw=DeepBlue!60,rounded corners=1pt,minimum width=0.5cm,minimum height=0.28cm]{}; & Per-job MLP (shared)\\[2pt]
+    %   \tikz\node[fill=Apurple,draw=DeepBlue!60,rounded corners=1pt,minimum width=0.5cm,minimum height=0.28cm]{}; & Pointer \& no-op head (learned MLP)\\[2pt]
+    %   \tikz\node[fill=Ateal,draw=DeepBlue!60,rounded corners=1pt,minimum width=0.5cm,minimum height=0.28cm]{}; & Value head (learned MLP, critic)\\[2pt]
+    %   \tikz\node[fill=Agreen,draw=DeepBlue!60,rounded corners=1pt,minimum width=0.5cm,minimum height=0.28cm]{}; & Softmax\\
+    % \end{tabular}
+  \end{columns}
+
+  % \notebar{\mbox{$V_q$ = visible queued jobs} \;\(\mid\)\; \mbox{$V_r$ = visible running jobs} \;\(\mid\)\; \mbox{$F_q,F_r$ = queue / running features (nodes, time)} \;\(\mid\)\; \mbox{$C$ = context features (first = free-node fraction)} \;\(\mid\)\; \mbox{$N\times$ = stacked self-attention layers}}
+\end{frame}
