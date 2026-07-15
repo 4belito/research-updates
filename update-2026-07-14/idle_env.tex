@@ -1,0 +1,69 @@
+% ============================================================
+%  update-2026-07-14/idle_env.tex   (FRAGMENT)
+%  Idle-environment results for the Cross--Self Attention (xsattn) policy.
+%  \input from update-2026-07-14/main.tex; job dir = research_updates/ (root),
+%  so images resolve via the preamble \graphicspath entry for this folder.
+% ============================================================
+
+\section{Idle Environment}
+
+% ---- Training curve: cross--self vs. plain attention -------
+\begin{frame}{Training: Cross--Self vs.\ Plain Attention}
+  \centering
+  \framedgraphic[height=0.80\textheight]{training_imrovment}
+
+  \vspace{0.2em}
+  {\small\textcolor{DeepBlue}{\textbf{smdpppo\_xsattn} keeps improving to a higher return; plain \textbf{smdpppo\_attn} plateaus early.}}
+\end{frame}
+
+% ---- Same weights, new workloads (one- vs multi-job) -------
+\begin{frame}{Same Weights, New Workloads}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}
+      \centering
+      {\bfseries\color{DeepBlue} One-job allocation}\\[3pt]
+      \framedgraphic[height=0.64\textheight]{one_job_testing}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \centering
+      {\bfseries\color{DeepBlue} Multiple-job allocation}\\[3pt]
+      \framedgraphic[height=0.64\textheight]{multi_job_testing}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3em}
+  \centering
+  {\small\textcolor{DeepBlue}{Same agent \& weights (trained on the one-job environment); \textbf{smdpppo\_xsattn} stays best under both workloads.}}
+\end{frame}
+
+% ---- Learned schedules: 2x2 Gantt --------------------------
+\begin{frame}{Learned Schedules}
+  \centering
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.49\textwidth}\centering
+      \framedgraphic[height=0.37\textheight]{policy_exploration_BestFit}\\[1pt]
+      {\scriptsize\color{DeepBlue} BestFit}
+    \end{column}
+    \begin{column}{0.49\textwidth}\centering
+      \framedgraphic[height=0.37\textheight]{policy_exploration_PPOatten}\\[1pt]
+      {\scriptsize\color{DeepBlue} PPO attention}
+    \end{column}
+  \end{columns}
+  \vspace{3pt}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.49\textwidth}\centering
+      \framedgraphic[height=0.37\textheight]{policy_exploration_SMDPPPOatten}\\[1pt]
+      {\scriptsize\color{DeepBlue} SMDP-PPO attention}
+    \end{column}
+    \begin{column}{0.49\textwidth}\centering
+      \framedgraphic[height=0.37\textheight]{policy_exploration_SMDPPPOxsatten}\\[1pt]
+      {\scriptsize\color{SoftCoral}\bfseries SMDP-PPO cross--self attention}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Idle-environment total reward -------------------------
+\begin{frame}{Idle Environment: Total Reward}
+  \centering
+  \framedgraphic[height=0.80\textheight]{full_results_idleenv}
+\end{frame}
