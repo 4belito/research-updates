@@ -1,5 +1,5 @@
 % ============================================================
-%  update-2026-07-14/architecture.tex  (FRAGMENT)
+%  update-2026-07-15/architecture.tex  (FRAGMENT)
 %  Cross--Self Attention policy slide. \input from this folder's main.tex,
 %  which supplies the shared preamble (colors, \notebar, tikz, ...).
 % ============================================================
@@ -129,14 +129,13 @@
     \begin{itemize}\setlength\itemsep{3pt}
       \item \textbf{Cross first:} each queued job attends the \emph{running}
             jobs (soon-to-free nodes) $+$ an \emph{always-valid ctx token} --
-            release-aware, and defined even with \emph{no running jobs}.
+            release-aware even with no running jobs.
       \item \textbf{Self next ($N\times$):} the queue self-attends, scoring
             each job \emph{relative to the rest}.
-      \item \textbf{Two action heads:} a \textbf{pointer} MLP (shared per job)
-            gives one logit per job; a \textbf{no-op} MLP pools the jobs into
-            action-0. Joined in one softmax over $V_q{+}1$.
-      \item \textbf{Masking:} padded / infeasible jobs $\to -\infty$ pre-softmax,
-            so only feasible jobs \& the no-op compete.
+      \item \textbf{Two heads:} a \textbf{pointer} MLP gives one logit per job;
+            a \textbf{no-op} MLP pools to action-0 -- one softmax over $V_q{+}1$.
+      \item \textbf{Masking:} infeasible / padded jobs $\to -\infty$, so only
+            feasible jobs \& the no-op compete.
       \item \textbf{Critic:} a \textbf{value} MLP scores $\hat V(s)$ for PPO.
     \end{itemize}
 
