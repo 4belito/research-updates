@@ -52,8 +52,11 @@
 }
 
 \usepackage{svg}
-\svgpath{{images/}{../images/}}
-\graphicspath{{images/}{../images/}{./}}
+% Figures live in update-2026-06-28/images/. Cover both compile roots:
+%   * update-2026-06-28/ as job dir  -> images/
+%   * research_updates/  as job dir  -> update-2026-06-28/images/
+\svgpath{{images/}{update-2026-06-28/images/}}
+\graphicspath{{images/}{update-2026-06-28/images/}{./}}
 \svgsetup{inkscapelatex=false}
 
 % ---------- Visual style (HPE-aligned corporate theme) -------
